@@ -26,6 +26,8 @@ The project has two parts. Start with the assignment brief, then work through th
 | File / Folder | Description |
 |---|---|
 | [**Solutions**](solutions/) | Worked solution for the notebook. |
+| [**models/**](models/) | Trained model (`webcam_classifier.keras`) and the 100 class names (`class_names.json`). |
+| [**src/**](src/) | Standalone app: shared model logic, command-line script and Streamlit web app. |
 | [**pyproject.toml**](pyproject.toml) | Project configuration and dependencies. |
 | [**uv.lock**](uv.lock) | Pinned dependency versions. |
 
@@ -101,6 +103,33 @@ Then open `02_starter_notebook.ipynb`, select the Python environment created by 
 
 > [!TIP]
 > The notebook loads CIFAR-100 from the TensorFlow Datasets Google Cloud Storage mirror (`try_gcs=True`), so the download does not depend on the original dataset server being available.
+
+## Standalone App
+
+The trained model from the notebook can be used without opening the notebook. All commands run from the project root after `uv sync`.
+
+| File | Purpose |
+|---|---|
+| [`src/classifier.py`](src/classifier.py) | Shared logic: load the model and class names, preprocess an image, return the top-k predictions. |
+| [`src/predict.py`](src/predict.py) | Command-line tool. |
+| [`src/app.py`](src/app.py) | Streamlit web app with webcam capture and image upload. |
+
+**Command line:**
+
+```bash
+uv run python src/predict.py path/to/image.png --top 5
+```
+
+**Web app:**
+
+```bash
+uv run streamlit run src/app.py
+```
+
+A browser tab opens. Take a photo with your webcam or upload an image, and the app shows the five most likely classes.
+
+> [!NOTE]
+> The model reaches about 58 % test accuracy on CIFAR-100. It works internally with 32 × 32 pixel images, so predictions on your own photos are often wrong. Best results come from a single object, large and centred, in front of a plain background.
 
 ## References & Further Reading
 
