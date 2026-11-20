@@ -208,3 +208,19 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# --- Projektspezifisch ---
+# Separat geklontes Webcam-Tool (eigenes Repo, nicht Teil dieses Projekts)
+imageclassifier/
+
+# Eigene Fotos/Webcam-Aufnahmen (privat, gehören nicht ins Repo)
+data/captures/
+captures/
+
+# Streamlit: lokale Secrets
+.streamlit/secrets.toml
+
+# TensorFlow-Checkpoints/Logs, falls später Callbacks genutzt werden
+logs/
+checkpoints/
+CLAUDE.md
